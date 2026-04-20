@@ -1,13 +1,14 @@
 <?php
 /**
  * Plugin Name: Free Shipping Progress Bar
- * Plugin URI:  https://github.com/
+ * Plugin URI:  https://github.com/tetterip/woo-free-shipping-progress-bar
  * Description: Displays a progress bar showing how much more a customer needs to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, WooCommerce mini cart, and the cart page.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Tetteris Michalis
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: free-shipping-progress-bar
+ * Domain Path: /languages
  * Requires Plugins: woocommerce
  */
 
@@ -22,11 +23,29 @@ function ttrp_init() {
         return;
     }
 
-    // Front-end
-    add_action( 'wp_enqueue_scripts',              'ttrp_enqueue_styles' );
-    add_action( 'woocommerce_after_template_part', 'ttrp_maybe_render_after_template', 10, 1 );
+    load_plugin_textdomain( 'free-shipping-progress-bar', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+
+    // Front-end styles
+    add_action( 'wp_enqueue_scripts', 'ttrp_enqueue_styles' );
+
+    // Mini cart — always at fixed positions
+    add_action( 'woocommerce_after_template_part',                 'ttrp_maybe_render_after_template', 10, 1 );
     add_action( 'woocommerce_widget_shopping_cart_before_buttons', 'ttrp_render_shipping_progress_bar', 5 );
-    add_action( 'woocommerce_before_cart_totals',  'ttrp_render_shipping_progress_bar' );
+
+    // Cart page — position driven by setting
+    $cart_hooks = array(
+        'before_cart'            => array( 'woocommerce_before_cart',        10 ),
+        'after_cart_table'       => array( 'woocommerce_after_cart_table',   10 ),
+        'before_cart_totals'     => array( 'woocommerce_before_cart_totals', 10 ),
+        'after_cart_totals'      => array( 'woocommerce_after_cart_totals',  10 ),
+        'before_checkout_button' => array( 'woocommerce_proceed_to_checkout', 10 ),
+    );
+    $position = ttrp_setting( 'cart_position' );
+    if ( ! array_key_exists( $position, $cart_hooks ) ) {
+        $position = 'before_cart_totals';
+    }
+    list( $hook, $priority ) = $cart_hooks[ $position ];
+    add_action( $hook, 'ttrp_render_shipping_progress_bar', $priority );
 
     // Shortcode: [free_shipping_bar]
     add_shortcode( 'free_shipping_bar', 'ttrp_shortcode' );
@@ -42,14 +61,15 @@ function ttrp_init() {
 
 function ttrp_defaults() {
     return array(
-        'msg_progress'    => 'Add {amount} more for free shipping!',
-        'msg_qualified'   => '🎉 You have free shipping!',
+        'msg_progress'    => __( 'Add {amount} more for free shipping!', 'free-shipping-progress-bar' ),
+        'msg_qualified'   => __( '🎉 You have free shipping!', 'free-shipping-progress-bar' ),
         'color_border'    => '#008481',
         'color_bg'        => '#ebf7ee',
         'color_text'      => '#008481',
         'color_remaining' => '#c32e2e',
         'color_bar_start' => '#008481',
         'color_bar_end'   => '#2ecc71',
+        'cart_position'   => 'before_cart_totals',
     );
 }
 
@@ -58,6 +78,16 @@ function ttrp_setting( $key ) {
     $options  = get_option( 'ttrp_settings', array() );
     $value    = isset( $options[ $key ] ) ? $options[ $key ] : '';
     return $value !== '' ? $value : ( $defaults[ $key ] ?? '' );
+}
+
+function ttrp_cart_position_options() {
+    return array(
+        'before_cart'            => __( 'Before the cart table', 'free-shipping-progress-bar' ),
+        'after_cart_table'       => __( 'After the cart table', 'free-shipping-progress-bar' ),
+        'before_cart_totals'     => __( 'Before cart totals', 'free-shipping-progress-bar' ),
+        'after_cart_totals'      => __( 'After cart totals', 'free-shipping-progress-bar' ),
+        'before_checkout_button' => __( 'Before checkout button', 'free-shipping-progress-bar' ),
+    );
 }
 
 // ---------------------------------------------------------------------------
@@ -139,6 +169,16 @@ function ttrp_get_settings( $settings, $current_section ) {
         ),
 
         array(
+            'title'    => __( 'Cart page position', 'free-shipping-progress-bar' ),
+            'desc'     => __( 'Where to display the bar on the cart page.', 'free-shipping-progress-bar' ),
+            'id'       => 'ttrp_settings[cart_position]',
+            'type'     => 'select',
+            'default'  => $d['cart_position'],
+            'options'  => ttrp_cart_position_options(),
+            'css'      => 'min-width:200px;',
+        ),
+
+        array(
             'type' => 'sectionend',
             'id'   => 'ttrp_settings_section',
         ),
@@ -169,7 +209,7 @@ function ttrp_enqueue_styles() {
         'ttrp-progress-bar',
         plugin_dir_url( __FILE__ ) . 'assets/progress-bar.css',
         array(),
-        '1.0.0'
+        '1.0.1'
     );
 
     $css = sprintf(

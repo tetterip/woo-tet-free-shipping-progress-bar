@@ -10,7 +10,9 @@ A lightweight WooCommerce plugin that displays a progress bar showing customers 
 - Progress bar and messages update in real time on cart changes (Elementor AJAX fragments included).
 - Customizable messages with a `{amount}` placeholder for the remaining amount.
 - Six color settings (border, background, text, remaining amount highlight, bar gradient) configurable from the WordPress admin.
+- Configurable cart page position: before/after the cart table, before/after cart totals, or before the checkout button.
 - Shortcode `[free_shipping_bar]` for embedding the bar anywhere on your site.
+- Translation-ready — ships with English (default) and Greek (`el`) translations.
 - No JavaScript, no observers, no race conditions — pure PHP + CSS.
 
 ---
@@ -56,6 +58,18 @@ Navigate to **WooCommerce > Settings > Products > Free Shipping Bar**.
 | Progress bar start color | `#008481` |
 | Progress bar end color | `#2ecc71` |
 
+### Cart page position
+
+| Option | Hook used |
+|---|---|
+| Before the cart table | `woocommerce_before_cart` |
+| After the cart table | `woocommerce_after_cart_table` |
+| **Before cart totals** *(default)* | `woocommerce_before_cart_totals` |
+| After cart totals | `woocommerce_after_cart_totals` |
+| Before checkout button | `woocommerce_proceed_to_checkout` |
+
+The mini cart positions (Elementor Menu Cart / default WC mini cart widget) are always shown and are not affected by this setting.
+
 ---
 
 ## Shortcode
@@ -65,6 +79,25 @@ Navigate to **WooCommerce > Settings > Products > Free Shipping Bar**.
 ```
 
 Embeds the progress bar in any page, post, or widget area. The WooCommerce cart must be initialized on the page for the bar to display (it works on any page that loads the WC cart session, including pages with the Elementor menu cart widget).
+
+---
+
+## Translations
+
+The plugin is fully translation-ready. Language files live in the `languages/` directory.
+
+| File | Language |
+|---|---|
+| `free-shipping-progress-bar.pot` | Template (all source strings) |
+| `free-shipping-progress-bar-el.po` | Greek |
+
+WordPress 6.5+ loads `.po` files directly. For older installs, compile the `.po` to a `.mo` binary:
+
+```bash
+msgfmt languages/free-shipping-progress-bar-el.po -o languages/free-shipping-progress-bar-el.mo
+```
+
+To add a new language, copy the `.pot` file, rename it to `free-shipping-progress-bar-{locale}.po` (e.g. `free-shipping-progress-bar-de_DE.po`), fill in the translations, and compile.
 
 ---
 
@@ -88,7 +121,7 @@ add_filter( 'ttrp_free_shipping_thresholds', function( $thresholds ) {
 | `ttrp_free_shipping_thresholds` | filter | Modify the array of detected thresholds before the minimum is selected |
 | `woocommerce_after_template_part` | action (internal) | Used to inject the bar after the Elementor mini cart template |
 | `woocommerce_widget_shopping_cart_before_buttons` | action (internal) | Used to inject the bar in the default WC mini cart widget |
-| `woocommerce_before_cart_totals` | action (internal) | Used to inject the bar on the cart page |
+| *(varies)* | action (internal) | Cart page hook — determined by the **Cart page position** setting |
 
 ---
 

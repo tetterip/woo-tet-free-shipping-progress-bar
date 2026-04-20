@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1] - 2026-04-20
+
+### Added
+- Internationalization (i18n) support with `load_plugin_textdomain()`. Ships with English (default) and Greek (`el`) translations.
+- Language files: `free-shipping-progress-bar.pot` template and `free-shipping-progress-bar-el.po` Greek translation under `languages/`. WordPress 6.5+ loads `.po` files directly; older installs can compile with `msgfmt`.
+- **Cart page position** setting under **WooCommerce > Settings > Products > Free Shipping Bar**: choose where the bar appears on the cart page — before/after the cart table, before/after cart totals, or before the checkout button. Defaults to "Before cart totals" (previous behaviour).
+
+### Changed
+- Default front-end messages (`msg_progress`, `msg_qualified`) are now wrapped in `__()` so they are translatable even before the user saves custom values.
+- Mini cart hooks and cart page hook are now registered separately: mini cart positions are always fixed; the cart page position is driven by the new setting.
+
+---
+
 ## [1.0.0] - 2026-04-20
 
 ### Added
