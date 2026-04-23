@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2026-04-23
+
+### Added
+- **Show in mini cart** and **Show on cart page** toggles — each location can now be independently enabled or disabled from **WooCommerce > Settings > Products > Free Shipping Bar**.
+
+### Changed
+- Color settings simplified from six pickers to two: **Main color** (controls border, text, and bar gradient start) and **Remaining amount color**. Background and bar gradient end are now derived automatically from the main color using HSL math — the background becomes a very pale tint and the gradient end a lighter shade of the same hue.
+- **Before checkout button** cart position now uses the `woocommerce_cart_totals_after_order_total` hook, which reliably places the bar above the checkout button regardless of theme template overrides. Previously used `woocommerce_proceed_to_checkout`, which rendered after the button on some themes.
+
+### Upgrade notes
+- Existing custom color settings (`color_border`, `color_bg`, `color_text`, `color_bar_start`, `color_bar_end`) are no longer read. After upgrading, set **Main color** to your preferred brand color — the plugin will derive the rest automatically.
+
+---
+
 ## [1.0.1] - 2026-04-20
 
 ### Added

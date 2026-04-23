@@ -9,8 +9,9 @@ A lightweight WooCommerce plugin that displays a progress bar showing customers 
 - Automatically reads the free shipping threshold from your WooCommerce shipping zones — no manual configuration required.
 - Progress bar and messages update in real time on cart changes (Elementor AJAX fragments included).
 - Customizable messages with a `{amount}` placeholder for the remaining amount.
-- Six color settings (border, background, text, remaining amount highlight, bar gradient) configurable from the WordPress admin.
+- Two color settings: a single **main color** (border, text, bar gradient) and a **remaining amount color**. Background and bar gradient end are derived automatically as a pale tint and a lighter shade of the main color.
 - Configurable cart page position: before/after the cart table, before/after cart totals, or before the checkout button.
+- Toggle the bar on or off independently for the mini cart and the cart page.
 - Shortcode `[free_shipping_bar]` for embedding the bar anywhere on your site.
 - Translation-ready — ships with English (default) and Greek (`el`) translations.
 - No JavaScript, no observers, no race conditions — pure PHP + CSS.
@@ -49,14 +50,19 @@ Navigate to **WooCommerce > Settings > Products > Free Shipping Bar**.
 
 ### Colors
 
+| Setting | Default | Notes |
+|---|---|---|
+| Main color | `#008481` | Controls border, text, and bar gradient start. Background and bar gradient end are derived automatically. |
+| Remaining amount color | `#c32e2e` | Color of the price shown in the progress message. |
+
+### Visibility
+
 | Setting | Default |
 |---|---|
-| Border color | `#008481` |
-| Background color | `#ebf7ee` |
-| Text color | `#008481` |
-| Remaining amount color | `#c32e2e` |
-| Progress bar start color | `#008481` |
-| Progress bar end color | `#2ecc71` |
+| Show in mini cart | Enabled |
+| Show on cart page | Enabled |
+
+Each location can be toggled independently. Disabling "Show on cart page" also hides the **Cart page position** setting (though it has no effect either way when the cart bar is off).
 
 ### Cart page position
 
@@ -66,9 +72,7 @@ Navigate to **WooCommerce > Settings > Products > Free Shipping Bar**.
 | After the cart table | `woocommerce_after_cart_table` |
 | **Before cart totals** *(default)* | `woocommerce_before_cart_totals` |
 | After cart totals | `woocommerce_after_cart_totals` |
-| Before checkout button | `woocommerce_proceed_to_checkout` |
-
-The mini cart positions (Elementor Menu Cart / default WC mini cart widget) are always shown and are not affected by this setting.
+| Before checkout button | `woocommerce_cart_totals_after_order_total` |
 
 ---
 

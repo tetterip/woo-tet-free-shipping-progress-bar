@@ -3,7 +3,7 @@
  * Plugin Name: Free Shipping Progress Bar
  * Plugin URI:  https://github.com/tetterip/woo-free-shipping-progress-bar
  * Description: Displays a progress bar showing how much more a customer needs to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, WooCommerce mini cart, and the cart page.
- * Version:     1.0.1
+ * Version:     1.1.0
  * Author:      Tetteris Michalis
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -28,24 +28,28 @@ function ttrp_init() {
     // Front-end styles
     add_action( 'wp_enqueue_scripts', 'ttrp_enqueue_styles' );
 
-    // Mini cart — always at fixed positions
-    add_action( 'woocommerce_after_template_part',                 'ttrp_maybe_render_after_template', 10, 1 );
-    add_action( 'woocommerce_widget_shopping_cart_before_buttons', 'ttrp_render_shipping_progress_bar', 5 );
-
-    // Cart page — position driven by setting
-    $cart_hooks = array(
-        'before_cart'            => array( 'woocommerce_before_cart',        10 ),
-        'after_cart_table'       => array( 'woocommerce_after_cart_table',   10 ),
-        'before_cart_totals'     => array( 'woocommerce_before_cart_totals', 10 ),
-        'after_cart_totals'      => array( 'woocommerce_after_cart_totals',  10 ),
-        'before_checkout_button' => array( 'woocommerce_proceed_to_checkout', 10 ),
-    );
-    $position = ttrp_setting( 'cart_position' );
-    if ( ! array_key_exists( $position, $cart_hooks ) ) {
-        $position = 'before_cart_totals';
+    // Mini cart — conditional on setting
+    if ( ttrp_setting( 'show_in_mini_cart' ) !== 'no' ) {
+        add_action( 'woocommerce_after_template_part',                 'ttrp_maybe_render_after_template', 10, 1 );
+        add_action( 'woocommerce_widget_shopping_cart_before_buttons', 'ttrp_render_shipping_progress_bar', 5 );
     }
-    list( $hook, $priority ) = $cart_hooks[ $position ];
-    add_action( $hook, 'ttrp_render_shipping_progress_bar', $priority );
+
+    // Cart page — conditional on setting, position driven by setting
+    if ( ttrp_setting( 'show_in_cart' ) !== 'no' ) {
+        $cart_hooks = array(
+            'before_cart'            => array( 'woocommerce_before_cart',                    10 ),
+            'after_cart_table'       => array( 'woocommerce_after_cart_table',               10 ),
+            'before_cart_totals'     => array( 'woocommerce_before_cart_totals',             10 ),
+            'after_cart_totals'      => array( 'woocommerce_after_cart_totals',              10 ),
+            'before_checkout_button' => array( 'woocommerce_proceed_to_checkout', 19 ),
+        );
+        $position = ttrp_setting( 'cart_position' );
+        if ( ! array_key_exists( $position, $cart_hooks ) ) {
+            $position = 'before_cart_totals';
+        }
+        list( $hook, $priority ) = $cart_hooks[ $position ];
+        add_action( $hook, 'ttrp_render_shipping_progress_bar', $priority );
+    }
 
     // Shortcode: [free_shipping_bar]
     add_shortcode( 'free_shipping_bar', 'ttrp_shortcode' );
@@ -61,15 +65,13 @@ function ttrp_init() {
 
 function ttrp_defaults() {
     return array(
-        'msg_progress'    => __( 'Add {amount} more for free shipping!', 'free-shipping-progress-bar' ),
-        'msg_qualified'   => __( '🎉 You have free shipping!', 'free-shipping-progress-bar' ),
-        'color_border'    => '#008481',
-        'color_bg'        => '#ebf7ee',
-        'color_text'      => '#008481',
-        'color_remaining' => '#c32e2e',
-        'color_bar_start' => '#008481',
-        'color_bar_end'   => '#2ecc71',
-        'cart_position'   => 'before_cart_totals',
+        'msg_progress'      => __( 'Add {amount} more for free shipping!', 'free-shipping-progress-bar' ),
+        'msg_qualified'     => __( '🎉 You have free shipping!', 'free-shipping-progress-bar' ),
+        'color_main'        => '#008481',
+        'color_remaining'   => '#c32e2e',
+        'show_in_mini_cart' => 'yes',
+        'show_in_cart'      => 'yes',
+        'cart_position'     => 'before_cart_totals',
     );
 }
 
@@ -88,6 +90,79 @@ function ttrp_cart_position_options() {
         'after_cart_totals'      => __( 'After cart totals', 'free-shipping-progress-bar' ),
         'before_checkout_button' => __( 'Before checkout button', 'free-shipping-progress-bar' ),
     );
+}
+
+// ---------------------------------------------------------------------------
+// Color helpers — derive background and bar-end from the main color
+// ---------------------------------------------------------------------------
+
+function ttrp_hex_to_rgb( $hex ) {
+    $hex = ltrim( $hex, '#' );
+    if ( strlen( $hex ) === 3 ) {
+        $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+    }
+    return array(
+        hexdec( substr( $hex, 0, 2 ) ) / 255,
+        hexdec( substr( $hex, 2, 2 ) ) / 255,
+        hexdec( substr( $hex, 4, 2 ) ) / 255,
+    );
+}
+
+function ttrp_rgb_to_hsl( $r, $g, $b ) {
+    $max = max( $r, $g, $b );
+    $min = min( $r, $g, $b );
+    $l   = ( $max + $min ) / 2;
+    if ( $max === $min ) {
+        return array( 0, 0, $l );
+    }
+    $d = $max - $min;
+    $s = $l > 0.5 ? $d / ( 2 - $max - $min ) : $d / ( $max + $min );
+    switch ( $max ) {
+        case $r:
+            $h = ( $g - $b ) / $d + ( $g < $b ? 6 : 0 );
+            break;
+        case $g:
+            $h = ( $b - $r ) / $d + 2;
+            break;
+        default:
+            $h = ( $r - $g ) / $d + 4;
+    }
+    return array( $h / 6, $s, $l );
+}
+
+function ttrp_hue_to_rgb( $p, $q, $t ) {
+    if ( $t < 0 ) { $t += 1; }
+    if ( $t > 1 ) { $t -= 1; }
+    if ( $t < 1 / 6 ) { return $p + ( $q - $p ) * 6 * $t; }
+    if ( $t < 1 / 2 ) { return $q; }
+    if ( $t < 2 / 3 ) { return $p + ( $q - $p ) * ( 2 / 3 - $t ) * 6; }
+    return $p;
+}
+
+function ttrp_hsl_to_hex( $h, $s, $l ) {
+    if ( $s == 0 ) {
+        $val = (int) round( $l * 255 );
+        return sprintf( '#%02x%02x%02x', $val, $val, $val );
+    }
+    $q = $l < 0.5 ? $l * ( 1 + $s ) : $l + $s - $l * $s;
+    $p = 2 * $l - $q;
+    $r = ttrp_hue_to_rgb( $p, $q, $h + 1 / 3 );
+    $g = ttrp_hue_to_rgb( $p, $q, $h );
+    $b = ttrp_hue_to_rgb( $p, $q, $h - 1 / 3 );
+    return sprintf( '#%02x%02x%02x', (int) round( $r * 255 ), (int) round( $g * 255 ), (int) round( $b * 255 ) );
+}
+
+// Main color at 10% opacity — used for the bar background.
+function ttrp_derive_bg_color( $hex ) {
+    list( $r, $g, $b ) = ttrp_hex_to_rgb( $hex );
+    return sprintf( 'rgba(%d,%d,%d,0.1)', (int) round( $r * 255 ), (int) round( $g * 255 ), (int) round( $b * 255 ) );
+}
+
+// Lighter, slightly brighter shade of the main color — used as bar gradient end.
+function ttrp_derive_bar_end_color( $hex ) {
+    list( $r, $g, $b ) = ttrp_hex_to_rgb( $hex );
+    list( $h, $s, $l ) = ttrp_rgb_to_hsl( $r, $g, $b );
+    return ttrp_hsl_to_hex( $h, min( 1.0, $s * 1.1 ), min( 0.75, $l + 0.25 ) );
 }
 
 // ---------------------------------------------------------------------------
@@ -132,40 +207,33 @@ function ttrp_get_settings( $settings, $current_section ) {
         ),
 
         array(
-            'title'   => __( 'Border color', 'free-shipping-progress-bar' ),
-            'id'      => 'ttrp_settings[color_border]',
+            'title'   => __( 'Main color', 'free-shipping-progress-bar' ),
+            'desc'    => __( 'Used for the border, text, and progress bar. Background and bar gradient end are derived automatically.', 'free-shipping-progress-bar' ),
+            'id'      => 'ttrp_settings[color_main]',
             'type'    => 'color',
-            'default' => $d['color_border'],
-        ),
-        array(
-            'title'   => __( 'Background color', 'free-shipping-progress-bar' ),
-            'id'      => 'ttrp_settings[color_bg]',
-            'type'    => 'color',
-            'default' => $d['color_bg'],
-        ),
-        array(
-            'title'   => __( 'Text color', 'free-shipping-progress-bar' ),
-            'id'      => 'ttrp_settings[color_text]',
-            'type'    => 'color',
-            'default' => $d['color_text'],
+            'default' => $d['color_main'],
         ),
         array(
             'title'   => __( 'Remaining amount color', 'free-shipping-progress-bar' ),
+            'desc'    => __( 'Color of the price shown in the progress message.', 'free-shipping-progress-bar' ),
             'id'      => 'ttrp_settings[color_remaining]',
             'type'    => 'color',
             'default' => $d['color_remaining'],
         ),
+
         array(
-            'title'   => __( 'Progress bar — start color', 'free-shipping-progress-bar' ),
-            'id'      => 'ttrp_settings[color_bar_start]',
-            'type'    => 'color',
-            'default' => $d['color_bar_start'],
+            'title'   => __( 'Show in mini cart', 'free-shipping-progress-bar' ),
+            'desc'    => __( 'Display the bar in the mini cart widget and side cart.', 'free-shipping-progress-bar' ),
+            'id'      => 'ttrp_settings[show_in_mini_cart]',
+            'type'    => 'checkbox',
+            'default' => $d['show_in_mini_cart'],
         ),
         array(
-            'title'   => __( 'Progress bar — end color', 'free-shipping-progress-bar' ),
-            'id'      => 'ttrp_settings[color_bar_end]',
-            'type'    => 'color',
-            'default' => $d['color_bar_end'],
+            'title'   => __( 'Show on cart page', 'free-shipping-progress-bar' ),
+            'desc'    => __( 'Display the bar on the cart page.', 'free-shipping-progress-bar' ),
+            'id'      => 'ttrp_settings[show_in_cart]',
+            'type'    => 'checkbox',
+            'default' => $d['show_in_cart'],
         ),
 
         array(
@@ -209,17 +277,22 @@ function ttrp_enqueue_styles() {
         'ttrp-progress-bar',
         plugin_dir_url( __FILE__ ) . 'assets/progress-bar.css',
         array(),
-        '1.0.1'
+        '1.1.0'
     );
+
+    $main      = ttrp_setting( 'color_main' );
+    $remaining = ttrp_setting( 'color_remaining' );
+    $bg        = ttrp_derive_bg_color( $main );
+    $bar_end   = ttrp_derive_bar_end_color( $main );
 
     $css = sprintf(
         ':root{--ttrp-border:%s;--ttrp-bg:%s;--ttrp-text:%s;--ttrp-remaining:%s;--ttrp-bar-start:%s;--ttrp-bar-end:%s;}',
-        esc_attr( ttrp_setting( 'color_border' ) ),
-        esc_attr( ttrp_setting( 'color_bg' ) ),
-        esc_attr( ttrp_setting( 'color_text' ) ),
-        esc_attr( ttrp_setting( 'color_remaining' ) ),
-        esc_attr( ttrp_setting( 'color_bar_start' ) ),
-        esc_attr( ttrp_setting( 'color_bar_end' ) )
+        esc_attr( $main ),
+        esc_attr( $bg ),
+        esc_attr( $main ),
+        esc_attr( $remaining ),
+        esc_attr( $main ),
+        esc_attr( $bar_end )
     );
 
     wp_add_inline_style( 'ttrp-progress-bar', $css );

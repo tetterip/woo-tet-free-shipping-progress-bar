@@ -26,9 +26,11 @@ Compares `WC()->cart->get_subtotal()` against the threshold, builds a percentage
 **Hooks registered (front-end)**
 | Hook | Purpose |
 |---|---|
-| `woocommerce_after_template_part` | Elementor Pro Menu Cart / Side Cart (fires after `cart/mini-cart.php`) |
-| `woocommerce_widget_shopping_cart_before_buttons` | Default WC mini cart widget |
-| `woocommerce_before_cart_totals` | Cart page |
+| `woocommerce_after_template_part` | Elementor Pro Menu Cart / Side Cart (fires after `cart/mini-cart.php`) — skipped when `show_in_mini_cart` is `no` |
+| `woocommerce_widget_shopping_cart_before_buttons` | Default WC mini cart widget — skipped when `show_in_mini_cart` is `no` |
+| *(varies by `cart_position` setting)* | Cart page — skipped entirely when `show_in_cart` is `no` |
+
+The `before_checkout_button` cart position uses `woocommerce_proceed_to_checkout` at priority **19**. WooCommerce registers the button at priority 20, so we slot in just before it. `woocommerce_cart_totals_after_order_total` was tried but fires inside the `<table>` element, landing visually under the "Cart totals" heading.
 
 **Shortcode**: `[free_shipping_bar]` — wraps the render function with `ob_start/ob_get_clean` so it can be embedded anywhere.
 
@@ -42,12 +44,14 @@ Settings are stored as a single serialized array under the option key `ttrp_sett
 |---|---|
 | `msg_progress` | `Add {amount} more for free shipping!` — `{amount}` is replaced with `wc_price()` output |
 | `msg_qualified` | `🎉 You have free shipping!` |
-| `color_border` | `#008481` |
-| `color_bg` | `#ebf7ee` |
-| `color_text` | `#008481` |
+| `color_main` | `#008481` — drives border, text, `--ttrp-bar-start`; bg and bar-end are derived via HSL |
 | `color_remaining` | `#c32e2e` |
-| `color_bar_start` | `#008481` |
-| `color_bar_end` | `#2ecc71` |
+| `show_in_mini_cart` | `yes` |
+| `show_in_cart` | `yes` |
+
+**Derived colors** (not stored, computed on each page load by `ttrp_derive_bg_color()` and `ttrp_derive_bar_end_color()`):
+- Background: `color_main` at 10% opacity (`rgba`)
+- Bar end: `color_main` hue, saturation ×1.1, lightness +25% (capped at 75%)
 
 ## Naming conventions
 
