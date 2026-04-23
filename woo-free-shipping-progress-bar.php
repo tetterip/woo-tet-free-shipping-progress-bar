@@ -152,10 +152,10 @@ function ttrp_hsl_to_hex( $h, $s, $l ) {
     return sprintf( '#%02x%02x%02x', (int) round( $r * 255 ), (int) round( $g * 255 ), (int) round( $b * 255 ) );
 }
 
-// Main color at 10% opacity — used for the bar background.
+// Main color at 15% opacity — used for the bar background.
 function ttrp_derive_bg_color( $hex ) {
     list( $r, $g, $b ) = ttrp_hex_to_rgb( $hex );
-    return sprintf( 'rgba(%d,%d,%d,0.1)', (int) round( $r * 255 ), (int) round( $g * 255 ), (int) round( $b * 255 ) );
+    return sprintf( 'rgba(%d,%d,%d,0.15)', (int) round( $r * 255 ), (int) round( $g * 255 ), (int) round( $b * 255 ) );
 }
 
 // Lighter, slightly brighter shade of the main color — used as bar gradient end.

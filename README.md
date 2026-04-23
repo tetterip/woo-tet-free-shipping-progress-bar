@@ -9,7 +9,7 @@ A lightweight WooCommerce plugin that displays a progress bar showing customers 
 - Automatically reads the free shipping threshold from your WooCommerce shipping zones — no manual configuration required.
 - Progress bar and messages update in real time on cart changes (Elementor AJAX fragments included).
 - Customizable messages with a `{amount}` placeholder for the remaining amount.
-- Two color settings: a single **main color** (border, text, bar gradient) and a **remaining amount color**. Background and bar gradient end are derived automatically as a pale tint and a lighter shade of the main color.
+- Two color settings: a single **main color** (border, text, bar gradient) and a **remaining amount color**. Background is the main color at 15% opacity; bar gradient end is a lighter shade of the same hue — both derived automatically.
 - Configurable cart page position: before/after the cart table, before/after cart totals, or before the checkout button.
 - Toggle the bar on or off independently for the mini cart and the cart page.
 - Shortcode `[free_shipping_bar]` for embedding the bar anywhere on your site.

@@ -50,7 +50,7 @@ Settings are stored as a single serialized array under the option key `ttrp_sett
 | `show_in_cart` | `yes` |
 
 **Derived colors** (not stored, computed on each page load by `ttrp_derive_bg_color()` and `ttrp_derive_bar_end_color()`):
-- Background: `color_main` at 10% opacity (`rgba`)
+- Background: `color_main` at 15% opacity (`rgba`)
 - Bar end: `color_main` hue, saturation ×1.1, lightness +25% (capped at 75%)
 
 ## Naming conventions
