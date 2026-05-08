@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2026-05-08
+
+### Added
+- Automatic update checker (`update-checker.php`) — the plugin now checks for new versions against the update server at `plugins.ttrp.gr` and integrates with the standard WordPress updates UI.
+
+---
+
 ## [1.1.0] - 2026-04-23
 
 ### Added
