@@ -8,8 +8,12 @@ A WordPress/WooCommerce plugin that displays a progress bar in the mini cart, si
 woo-free-shipping-progress-bar/
 ├── woo-free-shipping-progress-bar.php   # All plugin logic
 ├── update-checker.php                   # WordPress update integration (checks plugins.ttrp.gr)
-└── assets/
-    └── progress-bar.css                 # Static styles using CSS custom properties
+├── assets/
+│   └── progress-bar.css                 # Static styles using CSS custom properties
+└── languages/
+    ├── free-shipping-progress-bar.pot   # Translation template
+    ├── free-shipping-progress-bar-el.po # Greek (source)
+    └── free-shipping-progress-bar-el.mo # Greek (compiled)
 ```
 
 No build step, no composer, no node_modules.
@@ -49,6 +53,7 @@ Settings are stored as a single serialized array under the option key `ttrp_sett
 | `color_remaining` | `#c32e2e` |
 | `show_in_mini_cart` | `yes` |
 | `show_in_cart` | `yes` |
+| `cart_position` | `before_cart_totals` — one of `before_cart`, `after_cart_table`, `before_cart_totals`, `after_cart_totals`, `before_checkout_button` |
 
 **Derived colors** (not stored, computed on each page load by `ttrp_derive_bg_color()` and `ttrp_derive_bar_end_color()`):
 - Background: `color_main` at 15% opacity (`rgba`)

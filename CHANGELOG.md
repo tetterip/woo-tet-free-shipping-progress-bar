@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.3] - 2026-05-08
+
+### Fixed
+- Updated Greek (`.po`/`.mo`) translation files to reflect all strings added since v1.1.0: new color settings, visibility toggles, and the renamed plugin title. Removed obsolete color strings from the v1.0 settings.
+
+---
+
 ## [1.2.2] - 2026-05-08
 
 ### Changed
