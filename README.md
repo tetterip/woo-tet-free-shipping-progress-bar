@@ -28,10 +28,9 @@ A lightweight WooCommerce plugin that displays a progress bar showing customers 
 
 ## Installation
 
-1. Download or clone this repository.
-2. Zip the `woo-free-shipping-progress-bar/` folder.
-3. Go to **WP Admin > Plugins > Add New > Upload Plugin** and upload the zip.
-4. Activate the plugin.
+1. Download the latest zip from the [Releases](https://github.com/tetterip/woo-free-shipping-progress-bar/releases) page.
+2. Go to **WP Admin > Plugins > Add New > Upload Plugin** and upload the zip.
+3. Activate the plugin.
 
 The progress bar will appear automatically in the mini cart and on the cart page as soon as a free shipping method with a minimum order amount is configured in WooCommerce.
 
@@ -72,7 +71,7 @@ Each location can be toggled independently. Disabling "Show on cart page" also h
 | After the cart table | `woocommerce_after_cart_table` |
 | **Before cart totals** *(default)* | `woocommerce_before_cart_totals` |
 | After cart totals | `woocommerce_after_cart_totals` |
-| Before checkout button | `woocommerce_cart_totals_after_order_total` |
+| Before checkout button | `woocommerce_proceed_to_checkout` (priority 19) |
 
 ---
 
@@ -93,15 +92,16 @@ The plugin is fully translation-ready. Language files live in the `languages/` d
 | File | Language |
 |---|---|
 | `free-shipping-progress-bar.pot` | Template (all source strings) |
-| `free-shipping-progress-bar-el.po` | Greek |
+| `free-shipping-progress-bar-el.po` | Greek (source) |
+| `free-shipping-progress-bar-el.mo` | Greek (compiled) |
 
-WordPress 6.5+ loads `.po` files directly. For older installs, compile the `.po` to a `.mo` binary:
+Both the `.po` and compiled `.mo` are bundled, so Greek works on all WordPress versions out of the box.
+
+To add a new language, copy the `.pot` file, rename it to `free-shipping-progress-bar-{locale}.po` (e.g. `free-shipping-progress-bar-de_DE.po`), fill in the translations, then compile:
 
 ```bash
-msgfmt languages/free-shipping-progress-bar-el.po -o languages/free-shipping-progress-bar-el.mo
+msgfmt languages/free-shipping-progress-bar-de_DE.po -o languages/free-shipping-progress-bar-de_DE.mo
 ```
-
-To add a new language, copy the `.pot` file, rename it to `free-shipping-progress-bar-{locale}.po` (e.g. `free-shipping-progress-bar-de_DE.po`), fill in the translations, and compile.
 
 ---
 

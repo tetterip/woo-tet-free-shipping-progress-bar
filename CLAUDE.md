@@ -7,11 +7,12 @@ A WordPress/WooCommerce plugin that displays a progress bar in the mini cart, si
 ```
 woo-free-shipping-progress-bar/
 ├── woo-free-shipping-progress-bar.php   # All plugin logic
+├── update-checker.php                   # WordPress update integration (checks plugins.ttrp.gr)
 └── assets/
     └── progress-bar.css                 # Static styles using CSS custom properties
 ```
 
-Single-file plugin — no build step, no composer, no node_modules.
+No build step, no composer, no node_modules.
 
 ## How it works
 
@@ -19,7 +20,7 @@ Single-file plugin — no build step, no composer, no node_modules.
 Iterates every WooCommerce shipping zone (including zone 0 / Rest of the World), collects `free_shipping` methods that have a `min_amount` requirement, and returns the lowest threshold found. Result is cached per-request via a `static` variable.
 
 **Rendering** (`ttrp_render_shipping_progress_bar`)
-Compares `WC()->cart->get_subtotal()` against the threshold, builds a percentage, and outputs the progress bar HTML. Messages and colors come from settings (`ttrp_setting()`), with hardcoded English defaults as fallback.
+Compares `WC()->cart->get_displayed_subtotal()` against the threshold, builds a percentage, and outputs the progress bar HTML. `get_displayed_subtotal()` is used (not `get_subtotal()`) so the value matches the tax-inclusive total the customer sees on tax-inclusive stores. Messages and colors come from settings (`ttrp_setting()`), with hardcoded English defaults as fallback.
 
 **Colors** are stored in `wp_options` as `ttrp_settings[color_*]` and injected as CSS custom properties (`--ttrp-border`, `--ttrp-bg`, etc.) via `wp_add_inline_style` on every front-end page load. The CSS sheet only uses `var()` references — no inline styles on elements.
 

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.1] - 2026-05-08
+
+### Fixed
+- Progress bar now uses `get_displayed_subtotal()` instead of `get_subtotal()` when calculating the remaining amount. On tax-inclusive stores, `get_subtotal()` returned the ex-tax cart total, causing the remaining amount shown to be higher than the actual gap to the threshold.
+
+---
+
 ## [1.2.0] - 2026-05-08
 
 ### Added
