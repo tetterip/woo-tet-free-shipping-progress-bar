@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.2] - 2026-05-08
+
+### Changed
+- Plugin renamed to **Free Shipping Progress Bar for WooCommerce**.
+
+---
+
 ## [1.2.1] - 2026-05-08
 
 ### Fixed

@@ -1,4 +1,4 @@
-# Free Shipping Progress Bar
+# Free Shipping Progress Bar for WooCommerce
 
 A lightweight WooCommerce plugin that displays a progress bar showing customers how much more they need to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, the default WooCommerce mini cart, and the cart page.
 
