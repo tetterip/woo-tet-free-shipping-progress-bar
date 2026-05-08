@@ -4,7 +4,7 @@ set -euo pipefail
 SLUG="woo-free-shipping-progress-bar"
 PLUGIN_FILE="${SLUG}.php"
 
-VERSION=$(grep -m1 "^ \* Version:" "$PLUGIN_FILE" | sed 's/.* Version: *//' | tr -d '[:space:]')
+VERSION=$(grep -m1 "Version:" "$PLUGIN_FILE" | sed 's/.*Version: *//' | tr -d '[:space:]')
 
 if [ -z "$VERSION" ]; then
     echo "Error: could not read version from $PLUGIN_FILE" >&2
