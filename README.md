@@ -38,7 +38,7 @@ The progress bar will appear automatically in the mini cart and on the cart page
 
 ## Configuration
 
-Navigate to **WooCommerce > Settings > Products > Free Shipping Bar**.
+Navigate to **ttrp.gr Plugins > Free Shipping Bar**.
 
 ### Messages
 

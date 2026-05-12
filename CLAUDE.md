@@ -41,9 +41,9 @@ The `before_checkout_button` cart position uses `woocommerce_proceed_to_checkout
 
 ## Admin settings
 
-**WooCommerce > Settings > Products > Free Shipping Bar**
+**ttrp.gr Plugins > Free Shipping Bar**
 
-Settings are stored as a single serialized array under the option key `ttrp_settings`. WooCommerce's Settings API handles save/load natively for array-style field IDs (`ttrp_settings[key]`).
+Settings are stored as a single serialized array under the option key `ttrp_settings`. WooCommerce's Settings API handles save/load natively for array-style field IDs (`ttrp_settings[key]`). The page is rendered via `ttrp_fsb_render_settings()` using `woocommerce_admin_fields()` and `woocommerce_update_options()`.
 
 | Setting key | Default |
 |---|---|

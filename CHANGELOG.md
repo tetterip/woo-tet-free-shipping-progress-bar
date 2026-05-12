@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.0] - 2026-05-12
+
+### Changed
+- Settings page moved from **WooCommerce > Settings > Products > Free Shipping Bar** to the new **ttrp.gr Plugins > Free Shipping Bar** top-level admin menu, shared across all ttrp.gr plugins.
+
+---
+
 ## [1.2.4] - 2026-05-08
 
 ### Fixed

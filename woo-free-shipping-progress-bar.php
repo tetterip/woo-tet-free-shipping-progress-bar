@@ -3,7 +3,7 @@
  Plugin Name: Free Shipping Progress Bar for WooCommerce
  Plugin URI:  https://github.com/tetterip/woo-free-shipping-progress-bar
  Description: Displays a progress bar showing how much more a customer needs to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, WooCommerce mini cart, and the cart page.
- Version:     1.2.4
+ Version:     1.3.0
  Author: Michalis Tetteris
  Author URI: https://ttrp.gr
  License:     GPL-2.0-or-later
@@ -55,9 +55,9 @@ function ttrp_init() {
     // Shortcode: [free_shipping_bar]
     add_shortcode( 'free_shipping_bar', 'ttrp_shortcode' );
 
-    // Admin: WooCommerce > Settings > Products > Free Shipping Bar
-    add_filter( 'woocommerce_get_sections_products', 'ttrp_add_settings_section' );
-    add_filter( 'woocommerce_get_settings_products', 'ttrp_get_settings', 10, 2 );
+    // Admin: ttrp Plugins > Free Shipping Bar
+    add_action( 'admin_menu', 'ttrp_fsb_maybe_register_brand_menu', 5 );
+    add_action( 'admin_menu', 'ttrp_fsb_admin_menu' );
 }
 
 // ---------------------------------------------------------------------------
@@ -164,6 +164,91 @@ function ttrp_derive_bar_end_color( $hex ) {
     list( $r, $g, $b ) = ttrp_hex_to_rgb( $hex );
     list( $h, $s, $l ) = ttrp_rgb_to_hsl( $r, $g, $b );
     return ttrp_hsl_to_hex( $h, min( 1.0, $s * 1.1 ), min( 0.75, $l + 0.25 ) );
+}
+
+// ---------------------------------------------------------------------------
+// ttrp Plugins admin menu
+// ---------------------------------------------------------------------------
+
+function ttrp_fsb_maybe_register_brand_menu(): void {
+    global $menu;
+    if ( is_array( $menu ) ) {
+        foreach ( $menu as $item ) {
+            if ( isset( $item[2] ) && 'ttrp-plugins' === $item[2] ) {
+                return;
+            }
+        }
+    }
+    if ( ! function_exists( 'ttrp_brand_dashboard' ) ) {
+        function ttrp_brand_dashboard(): void {
+            global $submenu;
+            $target = null;
+            if ( ! empty( $submenu['ttrp-plugins'] ) ) {
+                foreach ( $submenu['ttrp-plugins'] as $item ) {
+                    if ( $item[2] !== 'ttrp-plugins' ) {
+                        $target = $item[2];
+                        break;
+                    }
+                }
+            }
+            if ( $target ) {
+                $url = esc_url( admin_url( 'admin.php?page=' . $target ) );
+                echo '<meta http-equiv="refresh" content="0;url=' . $url . '">';
+                echo '<script>window.location.replace("' . $url . '");</script>';
+            }
+        }
+    }
+    $svg_path = plugin_dir_path( __FILE__ ) . 'assets/ttrp-logo.svg';
+    $icon     = file_exists( $svg_path )
+        ? 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( $svg_path ) )
+        : 'dashicons-admin-plugins';
+    add_menu_page(
+        'ttrp.gr Plugins',
+        'ttrp.gr Plugins',
+        'manage_options',
+        'ttrp-plugins',
+        'ttrp_brand_dashboard',
+        $icon,
+        56
+    );
+    add_action( 'admin_menu', function () {
+        remove_submenu_page( 'ttrp-plugins', 'ttrp-plugins' );
+    }, 999 );
+}
+
+function ttrp_fsb_admin_menu(): void {
+    add_submenu_page(
+        'ttrp-plugins',
+        __( 'Free Shipping Bar', 'free-shipping-progress-bar' ),
+        __( 'Free Shipping Bar', 'free-shipping-progress-bar' ),
+        'manage_options',
+        'ttrp-free-shipping-bar',
+        'ttrp_fsb_render_settings'
+    );
+}
+
+function ttrp_fsb_render_settings(): void {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+    if ( isset( $_POST['save_ttrp_fsb'] ) && check_admin_referer( 'ttrp_fsb_save' ) ) {
+        woocommerce_update_options( ttrp_get_settings( [], 'free_shipping_bar' ) );
+        echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Settings saved.', 'free-shipping-progress-bar' ) . '</p></div>';
+    }
+    ?>
+    <div class="wrap woocommerce">
+        <h1><?php esc_html_e( 'Free Shipping Bar', 'free-shipping-progress-bar' ); ?></h1>
+        <form method="post">
+            <?php
+            wp_nonce_field( 'ttrp_fsb_save' );
+            woocommerce_admin_fields( ttrp_get_settings( [], 'free_shipping_bar' ) );
+            ?>
+            <p class="submit">
+                <input type="submit" name="save_ttrp_fsb" class="button-primary" value="<?php esc_attr_e( 'Save settings', 'free-shipping-progress-bar' ); ?>" />
+            </p>
+        </form>
+    </div>
+    <?php
 }
 
 // ---------------------------------------------------------------------------
