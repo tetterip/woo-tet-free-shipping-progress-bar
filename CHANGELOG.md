@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.1] - 2026-05-13
+
+### Changed
+- Renamed main plugin file to `woo-tet-free-shipping-progress-bar.php` to align with the naming convention used across ttrp.gr plugins.
+- Updated update checker slug accordingly.
+- Updated translation source file references in `.pot` and `.po`.
+
+---
+
 ## [1.3.0] - 2026-05-12
 
 ### Changed
