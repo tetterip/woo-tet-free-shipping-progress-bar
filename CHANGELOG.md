@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.6] - 2026-05-13
+
+### Fixed
+- Add missing `assets/ttrp.svg` so the settings page header logo renders correctly.
+
+---
+
 ## [1.3.5] - 2026-05-13
 
 ### Changed
