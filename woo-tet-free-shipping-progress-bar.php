@@ -3,7 +3,7 @@
  * Plugin Name:       Free Shipping Progress Bar for WooCommerce
  * Plugin URI:        https://github.com/tetterip/woo-tet-free-shipping-progress-bar
  * Description:       Displays a progress bar showing how much more a customer needs to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, WooCommerce mini cart, and the cart page.
- * Version:           1.3.1
+ * Version:           1.3.2
  * Author:            Michalis Tetteris
  * Author URI:        https://ttrp.gr
  * License:           GPL-2.0+
@@ -229,6 +229,15 @@ function ttrp_fsb_admin_menu(): void {
     );
 }
 
+function ttrp_fsb_enqueue_admin_assets(): void {
+    if ( ! isset( $_GET['page'] ) || 'ttrp-free-shipping-bar' !== $_GET['page'] ) {
+        return;
+    }
+    wp_enqueue_style( 'woocommerce_admin_styles' );
+    wp_enqueue_style( 'ttrp-admin', plugins_url( 'assets/ttrp-admin.css', __FILE__ ), [], '1.3.2' );
+}
+add_action( 'admin_enqueue_scripts', 'ttrp_fsb_enqueue_admin_assets' );
+
 function ttrp_fsb_render_settings(): void {
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
@@ -238,8 +247,11 @@ function ttrp_fsb_render_settings(): void {
         echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Settings saved.', 'free-shipping-progress-bar' ) . '</p></div>';
     }
     ?>
-    <div class="wrap woocommerce">
-        <h1><?php esc_html_e( 'Free Shipping Bar', 'free-shipping-progress-bar' ); ?></h1>
+    <div class="wrap woocommerce ttrp-wrap">
+        <div class="ttrp-plugin-header">
+            <h1><?php esc_html_e( 'Free Shipping Bar', 'free-shipping-progress-bar' ); ?></h1>
+            <span class="ttrp-plugin-version">v1.3.2</span>
+        </div>
         <form method="post">
             <?php
             wp_nonce_field( 'ttrp_fsb_save' );
@@ -249,6 +261,10 @@ function ttrp_fsb_render_settings(): void {
                 <input type="submit" name="save_ttrp_fsb" class="button-primary" value="<?php esc_attr_e( 'Save settings', 'free-shipping-progress-bar' ); ?>" />
             </p>
         </form>
+        <div class="ttrp-settings-footer">
+            <img src="<?php echo esc_url( plugins_url( 'assets/ttrp-logo.svg', __FILE__ ) ); ?>" alt="" />
+            <span><?php esc_html_e( 'Free Shipping Bar by', 'free-shipping-progress-bar' ); ?> <a href="https://ttrp.gr" target="_blank">ttrp.gr</a></span>
+        </div>
     </div>
     <?php
 }

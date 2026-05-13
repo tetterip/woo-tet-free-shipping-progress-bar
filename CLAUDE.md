@@ -9,7 +9,8 @@ woo-tet-free-shipping-progress-bar/
 ├── woo-tet-free-shipping-progress-bar.php   # All plugin logic
 ├── update-checker.php                   # WordPress update integration (checks plugins.ttrp.gr)
 ├── assets/
-│   └── progress-bar.css                 # Static styles using CSS custom properties
+│   ├── progress-bar.css                 # Static styles using CSS custom properties
+│   └── ttrp-admin.css                   # Shared TTRP admin design system (enqueued on settings page only)
 └── languages/
     ├── free-shipping-progress-bar.pot   # Translation template
     ├── free-shipping-progress-bar-el.po # Greek (source)
@@ -43,7 +44,7 @@ The `before_checkout_button` cart position uses `woocommerce_proceed_to_checkout
 
 **ttrp.gr Plugins > Free Shipping Bar**
 
-Settings are stored as a single serialized array under the option key `ttrp_settings`. WooCommerce's Settings API handles save/load natively for array-style field IDs (`ttrp_settings[key]`). The page is rendered via `ttrp_fsb_render_settings()` using `woocommerce_admin_fields()` and `woocommerce_update_options()`.
+Settings are stored as a single serialized array under the option key `ttrp_settings`. WooCommerce's Settings API handles save/load natively for array-style field IDs (`ttrp_settings[key]`). The page is rendered via `ttrp_fsb_render_settings()` using `woocommerce_admin_fields()` and `woocommerce_update_options()`. Admin CSS (`ttrp-admin.css` + `woocommerce_admin_styles`) is enqueued by `ttrp_fsb_enqueue_admin_assets()` only when `?page=ttrp-free-shipping-bar`. The page uses `.ttrp-plugin-header` / `.ttrp-settings-footer` from the shared design system.
 
 | Setting key | Default |
 |---|---|

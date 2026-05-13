@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.2] - 2026-05-13
+
+### Added
+- `assets/ttrp-admin.css` — shared TTRP admin design system (badges, notices, order panel, settings header/footer) now bundled in this plugin.
+- `ttrp_fsb_enqueue_admin_assets()` — admin CSS is now enqueued on the plugin settings page (previously missing entirely).
+
+### Changed
+- Admin settings page now uses `.ttrp-wrap`, `.ttrp-plugin-header` (with version pill), and `.ttrp-settings-footer` (ttrp.gr logo and link) for a consistent look across all ttrp.gr plugins.
+
+---
+
 ## [1.3.1] - 2026-05-13
 
 ### Changed
