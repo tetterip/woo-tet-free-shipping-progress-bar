@@ -1,9 +1,9 @@
-﻿<?php
+<?php
 /**
  * Plugin Name:       Free Shipping Progress Bar for WooCommerce
  * Plugin URI:        https://github.com/tetterip/woo-tet-free-shipping-progress-bar
  * Description:       Displays a progress bar showing how much more a customer needs to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, WooCommerce mini cart, and the cart page.
- * Version:           1.3.3
+ * Version:           1.3.4
  * Author:            Michalis Tetteris
  * Author URI:        https://ttrp.gr
  * License:           GPL-2.0+
@@ -240,7 +240,7 @@ function ttrp_fsb_enqueue_admin_assets(): void {
         return;
     }
     wp_enqueue_style( 'woocommerce_admin_styles' );
-    wp_enqueue_style( 'ttrp-admin', plugins_url( 'assets/ttrp-admin.css', __FILE__ ), [], '1.3.3' );
+    wp_enqueue_style( 'ttrp-admin', plugins_url( 'assets/ttrp-admin.css', __FILE__ ), [], '1.3.4' );
 }
 add_action( 'admin_enqueue_scripts', 'ttrp_fsb_enqueue_admin_assets' );
 
@@ -256,7 +256,7 @@ function ttrp_fsb_render_settings(): void {
     <div class="wrap woocommerce ttrp-wrap">
         <div class="ttrp-plugin-header">
             <h1><?php esc_html_e( 'Free Shipping Bar', 'free-shipping-progress-bar' ); ?></h1>
-            <span class="ttrp-plugin-version">v1.3.3</span>
+            <span class="ttrp-plugin-version">v1.3.4</span>
         </div>
         <form method="post">
             <?php
