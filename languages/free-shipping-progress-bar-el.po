@@ -16,103 +16,103 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: free-shipping-progress-bar\n"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Add {amount} more for free shipping!"
 msgstr "Προσθέστε {amount} ακόμα για δωρεάν αποστολή!"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "🎉 You have free shipping!"
 msgstr "🎉 Έχετε δωρεάν αποστολή!"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Free Shipping Bar"
 msgstr "Μπάρα Δωρεάν Αποστολής"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Free Shipping Progress Bar for WooCommerce"
 msgstr "Free Shipping Progress Bar for WooCommerce"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Progress message"
 msgstr "Μήνυμα προόδου"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Use <code>{amount}</code> as a placeholder for the remaining amount."
 msgstr "Χρησιμοποιήστε <code>{amount}</code> ως εικονικό κείμενο για το υπόλοιπο ποσό."
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Qualified message"
 msgstr "Μήνυμα επίτευξης"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Shown when the cart total has reached the free shipping threshold."
 msgstr "Εμφανίζεται όταν το σύνολο του καλαθιού φτάσει το όριο δωρεάν αποστολής."
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Main color"
 msgstr "Κύριο χρώμα"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Used for the border, text, and progress bar. Background and bar gradient end are derived automatically."
 msgstr "Χρησιμοποιείται για το περίγραμμα, το κείμενο και τη μπάρα προόδου. Το φόντο και το τελικό χρώμα της κλίσης υπολογίζονται αυτόματα."
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Remaining amount color"
 msgstr "Χρώμα υπολειπόμενου ποσού"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Color of the price shown in the progress message."
 msgstr "Χρώμα της τιμής που εμφανίζεται στο μήνυμα προόδου."
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Show in mini cart"
 msgstr "Εμφάνιση στο mini cart"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Display the bar in the mini cart widget and side cart."
 msgstr "Εμφάνιση της μπάρας στο widget mini cart και στο πλαϊνό cart."
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Show on cart page"
 msgstr "Εμφάνιση στη σελίδα καλαθιού"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Display the bar on the cart page."
 msgstr "Εμφάνιση της μπάρας στη σελίδα καλαθιού."
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Cart page position"
 msgstr "Θέση στη σελίδα καλαθιού"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Where to display the bar on the cart page."
 msgstr "Πού να εμφανίζεται η μπάρα στη σελίδα καλαθιού."
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Before the cart table"
 msgstr "Πριν τον πίνακα καλαθιού"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "After the cart table"
 msgstr "Μετά τον πίνακα καλαθιού"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Before cart totals"
 msgstr "Πριν τα σύνολα καλαθιού"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "After cart totals"
 msgstr "Μετά τα σύνολα καλαθιού"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Before checkout button"
 msgstr "Πριν το κουμπί ολοκλήρωσης αγοράς"
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Shortcode"
 msgstr "Shortcode"
 
 #. translators: %s shortcode tag
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Use %s to embed the progress bar in any page, post, or widget area — wherever the WooCommerce cart is available."
 msgstr "Χρησιμοποιήστε το %s για να ενσωματώσετε τη μπάρα προόδου σε οποιαδήποτε σελίδα, ανάρτηση ή περιοχή widget — όπου είναι διαθέσιμο το καλάθι WooCommerce."

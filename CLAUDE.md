@@ -5,8 +5,8 @@ A WordPress/WooCommerce plugin that displays a progress bar in the mini cart, si
 ## File structure
 
 ```
-woo-free-shipping-progress-bar/
-├── woo-free-shipping-progress-bar.php   # All plugin logic
+woo-tet-free-shipping-progress-bar/
+├── woo-tet-free-shipping-progress-bar.php   # All plugin logic
 ├── update-checker.php                   # WordPress update integration (checks plugins.ttrp.gr)
 ├── assets/
 │   └── progress-bar.css                 # Static styles using CSS custom properties

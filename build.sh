@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SLUG="woo-free-shipping-progress-bar"
+SLUG="woo-tet-free-shipping-progress-bar"
 PLUGIN_FILE="${SLUG}.php"
 
 VERSION=$(grep -m1 "Version:" "$PLUGIN_FILE" | sed 's/.*Version: *//' | tr -d '[:space:]')

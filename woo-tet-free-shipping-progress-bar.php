@@ -479,4 +479,4 @@ function ttrp_shortcode() {
 }
 
 require_once plugin_dir_path( __FILE__ ) . 'update-checker.php';
-new TTRP_Update_Checker( __FILE__, 'woo-free-shipping-progress-bar' );
+new TTRP_Update_Checker( __FILE__, 'woo-tet-free-shipping-progress-bar' );

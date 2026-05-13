@@ -23,103 +23,103 @@ msgstr ""
 msgid "Displays a progress bar showing how much more a customer needs to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, WooCommerce mini cart, and the cart page."
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Add {amount} more for free shipping!"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "🎉 You have free shipping!"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Free Shipping Bar"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Free Shipping Progress Bar for WooCommerce"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Progress message"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Use <code>{amount}</code> as a placeholder for the remaining amount."
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Qualified message"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Shown when the cart total has reached the free shipping threshold."
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Main color"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Used for the border, text, and progress bar. Background and bar gradient end are derived automatically."
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Remaining amount color"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Color of the price shown in the progress message."
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Show in mini cart"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Display the bar in the mini cart widget and side cart."
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Show on cart page"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Display the bar on the cart page."
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Cart page position"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Where to display the bar on the cart page."
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Before the cart table"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "After the cart table"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Before cart totals"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "After cart totals"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Before checkout button"
 msgstr ""
 
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Shortcode"
 msgstr ""
 
 #. translators: %s shortcode tag
-#: woo-free-shipping-progress-bar.php
+#: woo-tet-free-shipping-progress-bar.php
 msgid "Use %s to embed the progress bar in any page, post, or widget area — wherever the WooCommerce cart is available."
 msgstr ""
