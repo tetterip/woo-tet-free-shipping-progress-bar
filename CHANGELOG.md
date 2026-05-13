@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.3] - 2026-05-13
+
+### Fixed
+- Declared HPOS (High-Performance Order Storage / Custom Order Tables) compatibility via `FeaturesUtil::declare_compatibility()`. WooCommerce was showing an incompatibility notice for this plugin despite it not using orders at all.
+
+---
+
 ## [1.3.2] - 2026-05-13
 
 ### Added

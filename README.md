@@ -15,6 +15,7 @@ A lightweight WooCommerce plugin that displays a progress bar showing customers 
 - Shortcode `[free_shipping_bar]` for embedding the bar anywhere on your site.
 - Translation-ready — ships with English (default) and Greek (`el`) translations.
 - No JavaScript, no observers, no race conditions — pure PHP + CSS.
+- Declared compatible with WooCommerce HPOS (High-Performance Order Storage).
 
 ---
 

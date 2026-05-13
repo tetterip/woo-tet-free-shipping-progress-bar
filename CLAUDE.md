@@ -29,6 +29,9 @@ Compares `WC()->cart->get_displayed_subtotal()` against the threshold, builds a 
 
 **Colors** are stored in `wp_options` as `ttrp_settings[color_*]` and injected as CSS custom properties (`--ttrp-border`, `--ttrp-bg`, etc.) via `wp_add_inline_style` on every front-end page load. The CSS sheet only uses `var()` references — no inline styles on elements.
 
+**HPOS compatibility**
+Declared via `FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true )` on the `before_woocommerce_init` action. The plugin does not use orders, so compatibility is unconditional. Without this declaration WooCommerce shows an incompatibility notice.
+
 **Hooks registered (front-end)**
 | Hook | Purpose |
 |---|---|
