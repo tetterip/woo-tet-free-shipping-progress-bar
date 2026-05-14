@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.8] - 2026-05-14
+
+### Changed
+- Admin settings footer logo width increased to 40 px and opacity set to 1 in `assets/ttrp-admin.css`.
+
+---
+
 ## [1.3.7] - 2026-05-14
 
 ### Fixed
