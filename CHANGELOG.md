@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.7] - 2026-05-14
+
+### Fixed
+- Load plugin textdomain on `init` instead of `plugins_loaded` to suppress the WordPress 6.7+ `_load_textdomain_just_in_time` notice.
+
+---
+
 ## [1.3.6] - 2026-05-13
 
 ### Fixed
