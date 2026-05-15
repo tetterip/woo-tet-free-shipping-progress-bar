@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.9] - 2026-05-15
+
+### Added
+- Block cart support via `render_block_woocommerce/proceed-to-checkout-block` filter — injects the progress bar above the checkout button on sites using the WooCommerce block cart.
+- Block mini cart support via `render_block_woocommerce/mini-cart-footer-block` filter — injects the bar above the footer of the block mini cart drawer. Both locations respect the existing **Show in mini cart** / **Show on cart page** toggles.
+
+### Changed
+- Plugin version is now derived once from the file header via `get_file_data()` and stored in the `TTRP_FSB_VERSION` constant. The admin settings page version pill, front-end stylesheet version, and admin stylesheet version all read from this constant — the plugin header is now the single source of truth.
+
+---
+
 ## [1.3.8] - 2026-05-14
 
 ### Changed

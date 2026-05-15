@@ -29,6 +29,9 @@ Compares `WC()->cart->get_displayed_subtotal()` against the threshold, builds a 
 
 **Colors** are stored in `wp_options` as `ttrp_settings[color_*]` and injected as CSS custom properties (`--ttrp-border`, `--ttrp-bg`, etc.) via `wp_add_inline_style` on every front-end page load. The CSS sheet only uses `var()` references — no inline styles on elements.
 
+**Version constant**
+`TTRP_FSB_VERSION` is defined at plugin load via `get_file_data( __FILE__, ... )['Version']`, making the plugin header `Version:` line the single source of truth. Used for the admin settings version pill, front-end stylesheet version, and admin stylesheet version.
+
 **HPOS compatibility**
 Declared via `FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true )` on the `before_woocommerce_init` action. The plugin does not use orders, so compatibility is unconditional. Without this declaration WooCommerce shows an incompatibility notice.
 
@@ -37,7 +40,9 @@ Declared via `FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE
 |---|---|
 | `woocommerce_after_template_part` | Elementor Pro Menu Cart / Side Cart (fires after `cart/mini-cart.php`) — skipped when `show_in_mini_cart` is `no` |
 | `woocommerce_widget_shopping_cart_before_buttons` | Default WC mini cart widget — skipped when `show_in_mini_cart` is `no` |
-| *(varies by `cart_position` setting)* | Cart page — skipped entirely when `show_in_cart` is `no` |
+| *(varies by `cart_position` setting)* | Classic cart page — skipped entirely when `show_in_cart` is `no` |
+| `render_block_woocommerce/proceed-to-checkout-block` | Block cart page — prepends bar HTML before the block's rendered output; skipped when `show_in_cart` is `no` |
+| `render_block_woocommerce/mini-cart-footer-block` | Block mini cart drawer — prepends bar HTML before the footer block; skipped when `show_in_mini_cart` is `no` |
 
 The `before_checkout_button` cart position uses `woocommerce_proceed_to_checkout` at priority **19**. WooCommerce registers the button at priority 20, so we slot in just before it. `woocommerce_cart_totals_after_order_total` was tried but fires inside the `<table>` element, landing visually under the "Cart totals" heading.
 

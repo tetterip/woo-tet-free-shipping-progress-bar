@@ -1,6 +1,6 @@
 # Free Shipping Progress Bar for WooCommerce
 
-A lightweight WooCommerce plugin that displays a progress bar showing customers how much more they need to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, the default WooCommerce mini cart, and the cart page.
+A lightweight WooCommerce plugin that displays a progress bar showing customers how much more they need to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, the default WooCommerce mini cart, the WooCommerce block cart, and the cart page.
 
 ---
 
@@ -11,6 +11,7 @@ A lightweight WooCommerce plugin that displays a progress bar showing customers 
 - Customizable messages with a `{amount}` placeholder for the remaining amount.
 - Two color settings: a single **main color** (border, text, bar gradient) and a **remaining amount color**. Background is the main color at 15% opacity; bar gradient end is a lighter shade of the same hue — both derived automatically.
 - Configurable cart page position: before/after the cart table, before/after cart totals, or before the checkout button.
+- Works with both the classic WooCommerce cart/mini cart and the block-based cart and mini cart drawer.
 - Toggle the bar on or off independently for the mini cart and the cart page.
 - Shortcode `[free_shipping_bar]` for embedding the bar anywhere on your site.
 - Translation-ready — ships with English (default) and Greek (`el`) translations.
@@ -126,7 +127,9 @@ add_filter( 'ttrp_free_shipping_thresholds', function( $thresholds ) {
 | `ttrp_free_shipping_thresholds` | filter | Modify the array of detected thresholds before the minimum is selected |
 | `woocommerce_after_template_part` | action (internal) | Used to inject the bar after the Elementor mini cart template |
 | `woocommerce_widget_shopping_cart_before_buttons` | action (internal) | Used to inject the bar in the default WC mini cart widget |
-| *(varies)* | action (internal) | Cart page hook — determined by the **Cart page position** setting |
+| *(varies)* | action (internal) | Classic cart page hook — determined by the **Cart page position** setting |
+| `render_block_woocommerce/proceed-to-checkout-block` | filter (internal) | Injects the bar above the checkout button on the block cart page |
+| `render_block_woocommerce/mini-cart-footer-block` | filter (internal) | Injects the bar above the footer of the block mini cart drawer |
 
 ---
 

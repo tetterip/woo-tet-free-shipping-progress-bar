@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Free Shipping Progress Bar for WooCommerce
  * Plugin URI:        https://github.com/tetterip/woo-tet-free-shipping-progress-bar
- * Description:       Displays a progress bar showing how much more a customer needs to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, WooCommerce mini cart, and the cart page.
- * Version:           1.3.8
+ * Description:       Displays a progress bar showing how much more a customer needs to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, WooCommerce mini cart, cart page, and block cart.
+ * Version:           1.3.9
  * Author:            Michalis Tetteris
  * Author URI:        https://ttrp.gr
  * License:           GPL-2.0+
@@ -18,6 +18,8 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+define( 'TTRP_FSB_VERSION', get_file_data( __FILE__, array( 'Version' => 'Version' ) )['Version'] );
 
 add_action( 'before_woocommerce_init', function () {
     if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
@@ -58,6 +60,16 @@ function ttrp_init() {
         }
         list( $hook, $priority ) = $cart_hooks[ $position ];
         add_action( $hook, 'ttrp_render_shipping_progress_bar', $priority );
+    }
+
+    // Block cart page — respects show_in_cart setting
+    if ( ttrp_setting( 'show_in_cart' ) !== 'no' ) {
+        add_filter( 'render_block_woocommerce/proceed-to-checkout-block', 'ttrp_block_inject_bar' );
+    }
+
+    // Block mini cart drawer — respects show_in_mini_cart setting
+    if ( ttrp_setting( 'show_in_mini_cart' ) !== 'no' ) {
+        add_filter( 'render_block_woocommerce/mini-cart-footer-block', 'ttrp_block_inject_bar' );
     }
 
     // Shortcode: [free_shipping_bar]
@@ -240,7 +252,7 @@ function ttrp_fsb_enqueue_admin_assets(): void {
         return;
     }
     wp_enqueue_style( 'woocommerce_admin_styles' );
-    wp_enqueue_style( 'ttrp-admin', plugins_url( 'assets/ttrp-admin.css', __FILE__ ), [], '1.3.5' );
+    wp_enqueue_style( 'ttrp-admin', plugins_url( 'assets/ttrp-admin.css', __FILE__ ), [], TTRP_FSB_VERSION );
 }
 add_action( 'admin_enqueue_scripts', 'ttrp_fsb_enqueue_admin_assets' );
 
@@ -256,7 +268,7 @@ function ttrp_fsb_render_settings(): void {
     <div class="wrap woocommerce ttrp-wrap">
         <div class="ttrp-plugin-header">
             <h1><?php esc_html_e( 'Free Shipping Bar', 'free-shipping-progress-bar' ); ?></h1>
-            <span class="ttrp-plugin-version">v1.3.6</span>
+            <span class="ttrp-plugin-version">v<?php echo esc_html( TTRP_FSB_VERSION ); ?></span>
         </div>
         <form method="post">
             <?php
@@ -387,7 +399,7 @@ function ttrp_enqueue_styles() {
         'ttrp-progress-bar',
         plugin_dir_url( __FILE__ ) . 'assets/progress-bar.css',
         array(),
-        '1.2.3'
+        TTRP_FSB_VERSION
     );
 
     $main      = ttrp_setting( 'color_main' );
@@ -490,6 +502,14 @@ function ttrp_maybe_render_after_template( $template_name ) {
     if ( $template_name === 'cart/mini-cart.php' ) {
         ttrp_render_shipping_progress_bar();
     }
+}
+
+// Prepend the bar before a block's rendered output (used for block cart + block mini cart).
+function ttrp_block_inject_bar( $content ) {
+    ob_start();
+    ttrp_render_shipping_progress_bar();
+    $bar = ob_get_clean();
+    return $bar !== '' ? $bar . $content : $content;
 }
 
 // ---------------------------------------------------------------------------
