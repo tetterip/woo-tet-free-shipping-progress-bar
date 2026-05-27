@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.11] - 2026-05-27
+
+### Fixed
+- Remove UTF-8 BOM from `update-checker.php` — the BOM was causing a stray character to be output before headers on sites that use the update checker's directory-rename feature.
+
+---
+
 ## [1.3.10] - 2026-05-27
 
 ### Fixed
