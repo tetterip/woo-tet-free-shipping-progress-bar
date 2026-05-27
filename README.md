@@ -22,7 +22,7 @@ A lightweight WooCommerce plugin that displays a progress bar showing customers 
 
 ## Requirements
 
-- WordPress 6.0+ (6.7+ compatible — translation loading notice resolved)
+- WordPress 6.0+ (7.0 compatible)
 - WooCommerce 7.0+
 - PHP 7.4+
 

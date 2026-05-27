@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.3.9] - 2026-05-15
+## [1.3.9] - 2026-05-27
+
+### Fixed
+- Guard `$wp_filesystem` global before calling `move()` in the update checker's `fix_directory_name()` — call `WP_Filesystem()` if not already initialised to prevent a fatal error during plugin updates.
+
+### Changed
+- Tested up to WordPress 7.0.
 
 ### Added
 - Block cart support via `render_block_woocommerce/proceed-to-checkout-block` filter — injects the progress bar above the checkout button on sites using the WooCommerce block cart.
