@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.12] - 2026-06-04
+
+### Changed
+- Keep the "Free Shipping Bar" name in English in all locales — the admin menu item, settings-page title/heading, and the **Products → Free Shipping Bar** WooCommerce section — per the suite convention that plugin titles, admin menu items, and WooCommerce tabs stay in English. (Was translated to "Μπάρα Δωρεάν Αποστολής".)
+
+### Fixed
+- Added missing Greek translations for admin strings that were showing in English: "Save settings", "Settings saved.", and the footer credit ("Free Shipping Bar by", with the product name kept in English). Regenerated the `.pot` and recompiled the `.mo`.
+
+---
+
 ## [1.3.11] - 2026-05-27
 
 ### Fixed

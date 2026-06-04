@@ -24,9 +24,10 @@ msgstr "Προσθέστε {amount} ακόμα για δωρεάν αποστο�
 msgid "🎉 You have free shipping!"
 msgstr "🎉 Έχετε δωρεάν αποστολή!"
 
+#. Plugin title / admin menu / WooCommerce section label — kept in English intentionally.
 #: woo-tet-free-shipping-progress-bar.php
 msgid "Free Shipping Bar"
-msgstr "Μπάρα Δωρεάν Αποστολής"
+msgstr "Free Shipping Bar"
 
 #: woo-tet-free-shipping-progress-bar.php
 msgid "Free Shipping Progress Bar for WooCommerce"
@@ -116,3 +117,16 @@ msgstr "Shortcode"
 #: woo-tet-free-shipping-progress-bar.php
 msgid "Use %s to embed the progress bar in any page, post, or widget area — wherever the WooCommerce cart is available."
 msgstr "Χρησιμοποιήστε το %s για να ενσωματώσετε τη μπάρα προόδου σε οποιαδήποτε σελίδα, ανάρτηση ή περιοχή widget — όπου είναι διαθέσιμο το καλάθι WooCommerce."
+
+#. The "Free Shipping Bar" product name is kept in English; only "by" is translated.
+#: woo-tet-free-shipping-progress-bar.php
+msgid "Free Shipping Bar by"
+msgstr "Free Shipping Bar από"
+
+#: woo-tet-free-shipping-progress-bar.php
+msgid "Save settings"
+msgstr "Αποθήκευση ρυθμίσεων"
+
+#: woo-tet-free-shipping-progress-bar.php
+msgid "Settings saved."
+msgstr "Οι ρυθμίσεις αποθηκεύτηκαν."
