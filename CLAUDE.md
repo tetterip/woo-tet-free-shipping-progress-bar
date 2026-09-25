@@ -7,7 +7,7 @@ A WordPress/WooCommerce plugin that displays a progress bar in the mini cart, si
 ```
 woo-tet-free-shipping-progress-bar/
 ├── woo-tet-free-shipping-progress-bar.php   # All plugin logic
-├── update-checker.php                   # WordPress update integration (checks plugins.ttrp.gr)
+├── ttrp-common/                         # Shared ttrp.gr library: updates + "All Plugins" page (synced from the update server repo; never edit)
 ├── assets/
 │   ├── progress-bar.css                 # Static styles using CSS custom properties
 │   └── ttrp-admin.css                   # Shared TTRP admin design system (enqueued on settings page only)
