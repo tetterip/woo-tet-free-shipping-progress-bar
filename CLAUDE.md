@@ -75,3 +75,13 @@ All functions and options use the `ttrp_` prefix (Tetteris). CSS classes use the
 ## Extension point
 
 `apply_filters( 'ttrp_free_shipping_thresholds', $thresholds )` — fired after zone detection, before `min()`. Use this to add, remove, or override thresholds programmatically.
+
+## Proposed features / backlog (review 2026-09-26)
+
+Proposals from a suite-wide review, **not yet approved or scheduled** — discuss with the user before implementing. Remove or tick items here as they ship.
+
+1. **Zone-aware threshold** — use the threshold of the zone matching the customer's address instead of the lowest across all zones.
+2. **Free-shipping coupons** — show "qualified" when a coupon grants free shipping.
+3. **Product suggestions** to close the gap ("add one of these").
+4. **More placements** — product pages and checkout.
+- **Tests + CI (suite item S1)** — port the zero-dependency runner (`tests/run.php`, `tests/stubs.php`) and `.github/workflows/tests.yml` (PHP lint + tests on 7.4 / 8.1 / 8.2) from `woo-tet-acs-tracking`. Extract pure logic into testable functions first; aim for 10–20 tests on the decisions that matter.
