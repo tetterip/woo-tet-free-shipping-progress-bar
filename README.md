@@ -135,7 +135,7 @@ add_filter( 'ttrp_free_shipping_thresholds', function( $thresholds ) {
 
 ## License
 
-GPL-2.0-or-later — see [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
+GPL-2.0-or-later — see [LICENSE](LICENSE).
 
 ## Author
 
