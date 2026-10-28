@@ -30,7 +30,7 @@ A lightweight WooCommerce plugin that displays a progress bar showing customers 
 
 ## Installation
 
-1. Download the latest zip from the [Releases](https://github.com/tetterip/woo-free-shipping-progress-bar/releases) page.
+1. Download the latest zip from the [Releases](https://github.com/tetterip/woo-tet-free-shipping-progress-bar/releases) page.
 2. Go to **WP Admin > Plugins > Add New > Upload Plugin** and upload the zip.
 3. Activate the plugin.
 
@@ -130,6 +130,24 @@ add_filter( 'ttrp_free_shipping_thresholds', function( $thresholds ) {
 | *(varies)* | action (internal) | Classic cart page hook — determined by the **Cart page position** setting |
 | `render_block_woocommerce/proceed-to-checkout-block` | filter (internal) | Injects the bar above the checkout button on the block cart page |
 | `render_block_woocommerce/mini-cart-footer-block` | filter (internal) | Injects the bar above the footer of the block mini cart drawer |
+
+---
+
+## Updates and privacy
+
+This plugin gets its updates from the ttrp.gr update server (`https://plugins.ttrp.gr/`), not from WordPress.org.
+When WordPress checks for updates, and when you open **ttrp.gr Plugins → All Plugins**, your site sends that server:
+
+- the plugin's slug and installed version,
+- the WordPress version and the site's address (in the request's `User-Agent` header),
+- the admin language (All Plugins page only).
+
+The server logs these requests, with the IP address, for 180 days and keeps a list of which sites run which plugin
+version. No order, customer or other personal data is sent. Questions: info@ttrp.gr.
+
+## Security
+
+Please report vulnerabilities privately to **info@ttrp.gr**, not in a public issue. See [SECURITY.md](SECURITY.md).
 
 ---
 
