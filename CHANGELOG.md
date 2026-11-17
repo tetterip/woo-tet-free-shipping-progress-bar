@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.4.1] - 2026-11-17
+
+### Security
+- Escape the free-shipping message at output (`wp_kses_post()` on echo, not earlier) and the redirect URL of the shared ttrp.gr Plugins menu page (`esc_url()` / `esc_js()`).
+
+### Added
+- Shared ttrp-common library 1.1.1: a one-time admin notice on what update checks send to plugins.ttrp.gr, a "Data and privacy" box on **ttrp.gr Plugins → All Plugins**, and a suggested paragraph for the WordPress privacy policy guide.
+
+### Changed
+- Tested up to WordPress 7.1 and WooCommerce 11.3.
+
+---
+
 ## [1.4.0] - 2026-09-25
 
 ### Added

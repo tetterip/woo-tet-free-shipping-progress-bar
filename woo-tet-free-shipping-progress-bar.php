@@ -3,7 +3,7 @@
  * Plugin Name:       Free Shipping Progress Bar for WooCommerce
  * Plugin URI:        https://github.com/tetterip/woo-tet-free-shipping-progress-bar
  * Description:       Displays a progress bar showing how much more a customer needs to spend to qualify for free shipping. Compatible with Elementor Pro Menu Cart, WooCommerce mini cart, cart page, and block cart.
- * Version:           1.4.0
+ * Version:           1.4.1
  * Author:            Michalis Tetteris
  * Author URI:        https://ttrp.gr
  * License:           GPL-2.0-or-later
@@ -13,9 +13,9 @@
  * Domain Path:       /languages
  * Requires Plugins:  woocommerce
  * Requires at least: 6.0
- * Tested up to:      7.0
+ * Tested up to:      7.1
  * Requires PHP:      7.4
- * WC tested up to:   10.7.0
+ * WC tested up to:   11.3
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -213,9 +213,9 @@ function ttrp_fsb_maybe_register_brand_menu(): void {
                 }
             }
             if ( $target ) {
-                $url = esc_url( admin_url( 'admin.php?page=' . $target ) );
-                echo '<meta http-equiv="refresh" content="0;url=' . $url . '">';
-                echo '<script>window.location.replace("' . $url . '");</script>';
+                $url = admin_url( 'admin.php?page=' . $target );
+                echo '<meta http-equiv="refresh" content="0;url=' . esc_url( $url ) . '">';
+                echo '<script>window.location.replace("' . esc_js( esc_url_raw( $url ) ) . '");</script>';
             }
         }
     }
@@ -249,7 +249,7 @@ function ttrp_fsb_admin_menu(): void {
 }
 
 function ttrp_fsb_enqueue_admin_assets(): void {
-    if ( ! isset( $_GET['page'] ) || 'ttrp-free-shipping-bar' !== $_GET['page'] ) {
+    if ( ! isset( $_GET['page'] ) || 'ttrp-free-shipping-bar' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only screen check, compared with a literal.
         return;
     }
     wp_enqueue_style( 'woocommerce_admin_styles' );
@@ -478,18 +478,18 @@ function ttrp_render_shipping_progress_bar() {
     $qualified  = $remaining <= 0;
 
     if ( $qualified ) {
-        $message = wp_kses_post( ttrp_setting( 'msg_qualified' ) );
+        $message = ttrp_setting( 'msg_qualified' );
     } else {
         $raw     = ttrp_setting( 'msg_progress' );
-        $message = wp_kses_post( str_replace( '{amount}', wc_price( $remaining ), $raw ) );
+        $message = str_replace( '{amount}', wc_price( $remaining ), $raw );
     }
     ?>
     <div class="ttrp-shipping-progress<?php echo $qualified ? ' is-qualified' : ''; ?>">
         <p class="ttrp-shipping-progress__message">
             <?php if ( $qualified ) : ?>
-                <strong><?php echo $message; ?></strong>
+                <strong><?php echo wp_kses_post( $message ); ?></strong>
             <?php else : ?>
-                <?php echo $message; ?>
+                <?php echo wp_kses_post( $message ); ?>
             <?php endif; ?>
         </p>
         <div class="ttrp-shipping-progress__bar">
